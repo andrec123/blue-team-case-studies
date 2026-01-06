@@ -11,4 +11,4 @@ The focus is on:
 - MITRE ATT&CK mapping
 - Response and mitigation recommendations
 
-These reports are written to mirror real-world SOC and DFIR workflows.
+These reports are written to mirror real world SOC and DFIR workflows.
