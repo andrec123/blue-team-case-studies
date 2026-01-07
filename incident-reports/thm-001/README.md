@@ -57,6 +57,7 @@ The incident was detected through behavioral alerts related to suspicious PowerS
 # MITRE ATT&CK Mapping
 - [T1059.001](https://attack.mitre.org/techniques/T1059/001) - Powershell
 - [T1041](https://attack.mitre.org/techniques/T1041) - Exfiltration Over C2 Channel
+- [T1021.002](https://attack.mitre.org/techniques/T1021/002/) - SMB/Windows Admin Shares
 
 # Impact Assessment
 
