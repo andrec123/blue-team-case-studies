@@ -25,7 +25,7 @@ The incident was detected through behavioral alerts related to suspicious PowerS
 
 - *win-3450*: infected with *PowerView.ps1* generated another alert.
 	- Shortly after the alert of downloading PowerView.ps1, at 02:01 PM EST we can see a Powershell execution, querying DNS for hostnames using PowerView.ps1 script
-		- ![[dnsHostnameDiscoveryEvidence.png]]
+		- ![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/thm-001/dnsHostnameDiscoveryEvidence.png)
 	- Later, at 2:02 PM EST we see a directory created called “exfiltration” within “C:\Users\michael.ascot\Downloads\”
 		- ![[suspiciousDirectoryCreation.png]]
 ### Network Share Access
