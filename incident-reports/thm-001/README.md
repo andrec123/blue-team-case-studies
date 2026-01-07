@@ -14,17 +14,15 @@ The incident was detected through behavioral alerts related to suspicious PowerS
 - Severity: Critical
 
 # How the incident was identified.
-- Alert source (email gateway, user report, SIEM)
-	- First alert was detected from alert queue with a description of: “A Powershell script was created in the Downloads folder”
-- Initial indicators (suspicious sender, links, attachments)
-	- The user michael.ascot’s account and device win-3450 was compromised. The threat actor began their post-exploitation with using and executing PowerView.ps1: file path: “C:\Users\michael.ascot\Downloads\**PowerView.ps1**”
-- Why this warranted investigation
-	- Powershell execution already raises suspicion. PowerView.ps1 is a tool used by penetration testers and red teamers for Windows enumeration and post compromise
+- First alert was detected from alert queue with a description of: “A Powershell script was created in the Downloads folder”
+- The user michael.ascot’s account and device win-3450 was compromised. The threat actor began their post-exploitation with using and executing PowerView.ps1: file path: “C:\Users\michael.ascot\Downloads\**PowerView.ps1**”
+- Powershell execution already raises suspicion. PowerView.ps1 is a tool used by penetration testers and red teamers for Windows enumeration and post compromise
+
 # Investigation & Analysis
 ### Initial PowerShell Execution
 
-- *win-3450*: infected with *PowerView.ps1* generated another alert.
-	- Shortly after the alert of downloading PowerView.ps1, at 02:01 PM EST we can see a Powershell execution, querying DNS for hostnames using PowerView.ps1 script
+- *win-3450*: Infected with *PowerView.ps1* generated an alert.
+	- Shortly after the alert, at 02:01 PM EST we can see a Powershell execution, querying DNS for hostnames using PowerView.ps1 script
 		- ![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/thm-001/dnsHostnameDiscoveryEvidence.png)
 	- Later, at 2:02 PM EST we see a directory created called “exfiltration” within “C:\Users\michael.ascot\Downloads\”
 		- ![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/thm-001/suspiciousDirectoryCreation.png)
@@ -40,9 +38,9 @@ The incident was detected through behavioral alerts related to suspicious PowerS
 - Then a zip file was created named *exfiltr8me.zip* within *C:\Users\michael.ascot\Downloads\exfiltration\*
 - 2:04:44 PM EST, on Splunk, we see the threat actor create a Powershell script where they are reading the bytes of their zipped file (which contains all the financial records extracted from the Z: drive), and encoding that data in base64, and then splitting all that encoded data into an array of 30 indices, or items.
 	- ![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/thm-001/dataExfiltrationPowershellScript.png)
-	- Then the script is iterating through each item, and performing an `nslookup` to that suspicious looking domain name, appending the base64 data in front of it.
+	- The script then iterates through each item, and performs an `nslookup` to that suspicious looking domain name, appending the base64 data in front of it.
 ### DNS-Based Data exfiltration
-- At 02:04 PM EST, a high number of high severity alerts started generating within the alert queue about a suspicious process detected in the environment.
+- At 02:04 PM EST, a high number of high severity alerts begin to generate within the alert queue about a suspicious process being detected within the environment.
 	- Looking at Splunk within this time frame, we see the threat actor running their script, sending DNS queries to their server *haz4rdw4re.io*, from the infected device
 	- ![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/thm-001/encodedExfilEvidence.png)
 
