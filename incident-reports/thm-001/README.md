@@ -27,24 +27,24 @@ The incident was detected through behavioral alerts related to suspicious PowerS
 	- Shortly after the alert of downloading PowerView.ps1, at 02:01 PM EST we can see a Powershell execution, querying DNS for hostnames using PowerView.ps1 script
 		- ![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/thm-001/dnsHostnameDiscoveryEvidence.png)
 	- Later, at 2:02 PM EST we see a directory created called “exfiltration” within “C:\Users\michael.ascot\Downloads\”
-		- ![[suspiciousDirectoryCreation.png]]
+		- ![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/thm-001/suspiciousDirectoryCreation.png)
 ### Network Share Access
 - A network drive was mapped to a local drive: *C:\Windows\system32\net.exe use Z:\\FILESRV-01\SSF-FinancialRecords* at 02:03 EST
-	- ![[mountingSensitiveDrive.png]]
+	- ![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/thm-001/suspiciousDirectoryCreation.png)
 	- An alert was generated for mapping a network drive to a local drive. This raises even more suspicion given the sequence of events. No normal user would download PowerView.ps1, run DNS queries to find hostnames, and create a directory called *exfiltration*.
 	- At 2:03:46 PM EST the threat actor then proceeded to Robocopy everything from the Z drive to the current \Downloads\exfiltration\ directory
-		- ![[robocopyEvidence.png]]
+		- ![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/thm-001/robocopyEvidence.png)
 	- At 02:04 PM EST, the network drive was unmounted or removed from the local host
-		- ![[unmountingSensitiveDrive.png]]
+		- ![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/thm-001/unmountingSensitiveDrive.png)
 ### Data Staging and Compression
 - Then a zip file was created named *exfiltr8me.zip* within *C:\Users\michael.ascot\Downloads\exfiltration\*
 - 2:04:44 PM EST, on Splunk, we see the threat actor create a Powershell script where they are reading the bytes of their zipped file (which contains all the financial records extracted from the Z: drive), and encoding that data in base64, and then splitting all that encoded data into an array of 30 indices, or items.
-	- ![[dataExfiltrationPowershellScript.png]]
+	- ![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/thm-001/dataExfiltrationPowershellScript.png)
 	- Then the script is iterating through each item, and performing an `nslookup` to that suspicious looking domain name, appending the base64 data in front of it.
 ### DNS-Based Data exfiltration
 - At 02:04 PM EST, a high number of high severity alerts started generating within the alert queue about a suspicious process detected in the environment.
 	- Looking at Splunk within this time frame, we see the threat actor running their script, sending DNS queries to their server *haz4rdw4re.io*, from the infected device
-	- ![[encodedExfilEvidence.png]]
+	- ![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/thm-001/encodedExfilEvidence.png)
 
 # MITRE ATT&CK mapping
 - [T1059.001](https://attack.mitre.org/techniques/T1059/001) - Powershell
