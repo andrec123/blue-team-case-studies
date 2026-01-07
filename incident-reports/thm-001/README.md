@@ -26,7 +26,7 @@ The incident was detected through behavioral alerts related to suspicious PowerS
 # How the incident was identified.
 - First alert was detected from alert queue with a description of: “A Powershell script was created in the Downloads folder”
 - The user michael.ascot’s account and device win-3450 was compromised. The threat actor began their post-exploitation with using and executing PowerView.ps1: file path: “C:\Users\michael.ascot\Downloads\**PowerView.ps1**”
-- Powershell execution already raises suspicion. PowerView.ps1 is a tool used by penetration testers and red teamers for Windows enumeration and post compromise
+- PowerShell execution originating from a user Downloads directory represents abnormal behavior and warranted immediate investigation. PowerView.ps1 is a tool used by penetration testers and red teamers for Windows enumeration and post compromise
 
 # Investigation & Analysis
 ### Initial PowerShell Execution
