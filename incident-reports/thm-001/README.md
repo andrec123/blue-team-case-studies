@@ -6,6 +6,16 @@ The attacker successfully exfiltrated financial records by encoding compressed d
 
 The incident was detected through behavioral alerts related to suspicious PowerShell execution and anomalous network activity. Immediate containment actions were not observed, allowing the attacker to complete the exfiltration.
 
+# Incident Timeline
+- 02:00 PM – Suspicious PowerShell script created in Downloads directory
+- 02:01 PM – PowerView.ps1 executed for hostname discovery
+- 02:02 PM – “exfiltration” directory created on compromised host
+- 02:03 PM – Network drive mapped to FILESRV-01 financial share
+- 02:03 PM – Financial records copied locally via Robocopy
+- 02:04 PM – Network drive unmounted
+- 02:04 PM – Data compressed and encoded in Base64
+- 02:04 PM – Data exfiltrated via DNS queries to haz4rdw4re.io
+
 # Incident Details
 - Incident Type: Data Exfiltration via DNS Tunneling
 - Date Observed: Jan 6th 2026 at 02:00 PM EST
