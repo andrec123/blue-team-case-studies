@@ -44,7 +44,7 @@ The incident was detected through behavioral alerts related to suspicious PowerS
 	- Looking at Splunk within this time frame, we see the threat actor running their script, sending DNS queries to their server *haz4rdw4re.io*, from the infected device
 	- ![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/thm-001/encodedExfilEvidence.png)
 
-# MITRE ATT&CK mapping
+# MITRE ATT&CK Mapping
 - [T1059.001](https://attack.mitre.org/techniques/T1059/001) - Powershell
 - [T1041](https://attack.mitre.org/techniques/T1041) - Exfiltration Over C2 Channel
 
