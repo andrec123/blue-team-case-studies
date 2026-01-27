@@ -53,7 +53,7 @@ Targeted enumeration activity aligned with **MITRE ATT&CK technique T1046 – Ne
 
 Subsequent SMB traffic analysis showed that the attacker accessed multiple file shares on the compromised server. Two SMB Tree Connect requests exposed the initial UNC paths accessed during enumeration.
 
-![[smbAccess.png]]
+![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/cyberdefenders-001/smbAccess.png)
 
 Within one of the accessed shares, the attacker uploaded a malicious ASP.NET web shell to a web-accessible directory. The uploaded file was identified as:
 
