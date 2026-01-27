@@ -43,7 +43,7 @@ Given the system’s role as a public-facing service, any unexpected outbound tr
 
 Analysis of the packet capture revealed repeated reconnaissance activity targeting the IIS host. The attacker conducted rapid scanning consistent with automated probing techniques, ultimately identifying accessible services exposed by the server.
 
-![[detectingNMAPScans.png]]
+![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/cyberdefenders-001/detectingNMAPScans.png)
 
 Targeted enumeration activity aligned with **MITRE ATT&CK technique T1046 – Network Service Discovery**.
 
@@ -62,7 +62,7 @@ Within one of the accessed shares, the attacker uploaded a malicious ASP.NET web
 - **File Size:** 1,015,024 bytes
     
 
-![[webShellUpload.png]]
+![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/cyberdefenders-001/webShellUpload.png)
 
 This web shell provided the attacker with remote command execution capabilities via the IIS application.
 
@@ -72,7 +72,7 @@ This web shell provided the attacker with remote command execution capabilities 
 
 Network traffic analysis showed that the deployed web shell initiated a reverse shell connection back to the attacker’s infrastructure over TCP port **4443**, an uncommon but firewall-friendly port.
 
-![[reverseShellCallback.png]]
+![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/cyberdefenders-001/reverseShellCallback.png)
 
 This connection confirmed that the attacker had achieved interactive access to the compromised server.
 
@@ -84,13 +84,13 @@ Using **Volatility 3**, analysis of the system memory image provided insight int
 
 The kernel base address was successfully identified, validating the integrity of the memory capture.
 
-![[identifyingKernelBaseAddress.png]]
+![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/cyberdefenders-001/identifyingKernelBaseAddress.png)
 
 Further analysis revealed that a legitimate Windows process was used to spawn an unfamiliar executable located outside the standard IIS directory structure. The malicious executable was placed within a Startup folder, indicating a persistence mechanism designed to execute automatically upon system boot or user logon.
 
 This behavior aligns with **MITRE ATT&CK technique T1547 – Boot or Logon Autostart Execution**.
 
-![[identifyingMaliciousProcessesAndPersistence.png]]
+![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/cyberdefenders-001/identifyingMaliciousProcessesAndPersistence.png)
 
 ---
 
@@ -98,7 +98,8 @@ This behavior aligns with **MITRE ATT&CK technique T1547 – Boot or Logon Autos
 
 Network connection analysis confirmed that the reverse shell traffic was handled by a built-in Windows process, which also spawned the malicious executable. The associated process and PID were identified using Volatility’s `windows.netscan` plugin.
 
-![[confirmingConnectionToShellAndPID.png]]
+
+![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/cyberdefenders-001/confirmingConnectionToShellAndPID.png)
 
 This confirmed sustained attacker control over the system.
 
@@ -111,16 +112,16 @@ Static analysis of the recovered malware sample revealed that the binary was pac
 - **Packer Identified:** [Detected via Detect It Easy]
     
 
-![[identifyingPackerUsedForMalware.png]]
+![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/cyberdefenders-001/identifyingPackerUsedForMalware.png)
 
 Threat intelligence analysis identified outbound beaconing activity to a known command-and-control domain.
 
-![[identifyingFQDNForC2Callback.png]]
+![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/cyberdefenders-001/identifyingFQDNForC2Callback.png)
 
 Open-source intelligence correlated the sample hash with a known commodity Remote Access Trojan (RAT), confirming the malware family associated with the intrusion.
 
-![[findingOpenSourceIntel.png]]  
-![[identifyingMalwareFamily.png]]
+![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/cyberdefenders-001/findingOpenSourceIntel.png)  
+![alt text](https://github.com/andrec123/blue-team-case-studies/blob/main/incident-reports/cyberdefenders-001/identifyingMalwareFamily.png)
 
 ---
 
